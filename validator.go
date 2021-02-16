@@ -361,6 +361,11 @@ func IsUUID(str string) bool {
 	return rxUUID.MatchString(str)
 }
 
+// IsULID checks if the string is a ULID.
+func IsULID_RE(str string) bool {
+	return rxULID.MatchString(str)
+}
+
 // Byte to index table for O(1) lookups when unmarshaling.
 // We use 0xFF as sentinel value for invalid indexes.
 var ulidDec = [...]byte{

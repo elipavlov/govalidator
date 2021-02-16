@@ -12,6 +12,7 @@ const (
 	UUID4             string = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 	UUID5             string = "^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 	UUID              string = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+	ULID              string = "(?i)^[0-7]{1}[0-9a-hjkm-np-tv-z]{25}$"
 	Alpha             string = "^[a-zA-Z]+$"
 	Alphanumeric      string = "^[a-zA-Z0-9]+$"
 	Numeric           string = "^[0-9]+$"
@@ -74,6 +75,7 @@ var (
 	rxUUID4             = regexp.MustCompile(UUID4)
 	rxUUID5             = regexp.MustCompile(UUID5)
 	rxUUID              = regexp.MustCompile(UUID)
+	rxULID              = regexp.MustCompile(ULID)
 	rxAlpha             = regexp.MustCompile(Alpha)
 	rxAlphanumeric      = regexp.MustCompile(Alphanumeric)
 	rxNumeric           = regexp.MustCompile(Numeric)
