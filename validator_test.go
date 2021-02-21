@@ -1460,6 +1460,52 @@ func TestIsULID(t *testing.T) {
 	}
 }
 
+func BenchmarkIsULID_RE(b *testing.B) {
+	var ulids []string = []string{
+		"0000000000zzzzzzzzzzzzzzzz", // true
+		"0123456789zzzzzzzzzzzzzzzz", // true
+		"0123456789abcdefghjkmnpqrs", // true
+		"7zzzzzzzzzaaaaaaaaaaaaaaaa", // true
+		"7zanmkqfpyaaaaaaaaaaaaaaaa", // true
+		"7zanmkqfpyaaaaaaaaaaAAAAAA", // true
+		"8000000000zzzzzzzzzzzzzzzz", // false
+		"8000000001zzzzzzzzzzzzzzzz", // false
+		"8123456789zzzzzzzzzzzzzzzz", // false
+		"8123456789zzzzzzzzzzzzzzzL", // false
+		"8123456789zzzzzzzzzzzzzzzO", // false
+		"8123456789zzzzzzzzzzzzzzzu", // false
+		"8123456789zzzzzzzzzzzzzzzI", // false
+	}
+
+	b.SetBytes(int64(len(ulids[0])))
+	for i := 0; i < b.N; i++ {
+		_ = IsULID_RE(ulids[i%len(ulids)])
+	}
+}
+
+func BenchmarkIsULID(b *testing.B) {
+	var ulids []string = []string{
+		"0000000000zzzzzzzzzzzzzzzz", // true
+		"0123456789zzzzzzzzzzzzzzzz", // true
+		"0123456789abcdefghjkmnpqrs", // true
+		"7zzzzzzzzzaaaaaaaaaaaaaaaa", // true
+		"7zanmkqfpyaaaaaaaaaaaaaaaa", // true
+		"7zanmkqfpyaaaaaaaaaaAAAAAA", // true
+		"8000000000zzzzzzzzzzzzzzzz", // false
+		"8000000001zzzzzzzzzzzzzzzz", // false
+		"8123456789zzzzzzzzzzzzzzzz", // false
+		"8123456789zzzzzzzzzzzzzzzL", // false
+		"8123456789zzzzzzzzzzzzzzzO", // false
+		"8123456789zzzzzzzzzzzzzzzu", // false
+		"8123456789zzzzzzzzzzzzzzzI", // false
+	}
+
+	b.SetBytes(int64(len(ulids[0])))
+	for i := 0; i < b.N; i++ {
+		_ = IsULID(ulids[i%len(ulids)])
+	}
+}
+
 func TestIsCreditCard(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
